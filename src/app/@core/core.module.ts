@@ -1,12 +1,14 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+import { environment } from "../../environments/environment";
+import { endpoints_auth } from "./utils/endpoints.auth";
 
 const socialLinks = [
   {
@@ -42,10 +44,18 @@ export const NB_CORE_PROVIDERS = [
         name: 'email',
         delay: 3000,
       }),
+      NbPasswordAuthStrategy.setup({
+        name: 'local',
+        baseEndpoint: environment.server_endpoint,
+        ...endpoints_auth
+      }),
     ],
     forms: {
       login: {
-        socialLinks: socialLinks,
+        redirectDelay: 1000,
+        socialLinks: [],
+        strategy: 'local',
+        rememberMe: false
       },
       register: {
         socialLinks: socialLinks,
