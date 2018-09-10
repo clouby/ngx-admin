@@ -1,62 +1,39 @@
-[![Build Status](https://travis-ci.org/akveo/ngx-admin.svg?branch=master)](https://travis-ci.org/akveo/ngx-admin)
-[![Join the chat at https://gitter.im/ng2-admin/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ng2-admin/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/akveo/ngx-admin/status.svg)](https://david-dm.org/akveo/ng2-admin)
+# Project management oriented to research (SENNP)
 
-[Who uses ngx-admin?](https://github.com/akveo/ngx-admin/issues/1645)
+### What features does it include:
 
-# Admin template based on Angular 6+, Bootstrap 4 and <a href="https://github.com/akveo/nebular">Nebular</a>
+- Task Management (grantt)
+- Handle role-oriented tasks
+- Push notification task
+- Recursive activities by roles
+- Project/Task Verification
 
-### Three themes available:
+### Start server:
+If it's your first time, execute
+```
+  npm install
+```
+and then:
+```
+  npm start
+```
 
-| Corporate Theme |
-|:---------------:|
-|<a target="_blank" href="http://akveo.com/ngx-admin/#/pages/dashboard?theme=corporate&utm_source=github&utm_medium=ngx_admin_readme&utm_campaign=themes"><img src="https://i.imgur.com/axbJYdN.png"/></a>|
+### Before make a push
+If you did your commits and now you want to make a push...
+```
+  npm run lint:fix
+```
+and then:
+```
+  npm run prepush
+```
 
-| Cosmic Theme | Light Theme |
-|:------------:|:--------------:|
-|<a target="_blank" href="http://akveo.com/ngx-admin/#/pages/dashboard?theme=cosmic&utm_source=github&utm_medium=ngx_admin_readme&utm_campaign=themes"><img src="https://i.imgur.com/FgRZcqL.png"/></a>|<a target="_blank" href="http://akveo.com/ngx-admin/#/pages/dashboard?theme=default&utm_source=github&utm_medium=ngx_admin_readme&utm_campaign=themes"><img src="https://i.imgur.com/fozHlRJ.png"/></a>|
+### This app is in [development]
+  If you suggest something to improve, i'll be so grateful.
+  Follow me on Twitter / Contact me: [@CarlosLB2507](https://twitter.com/CarlosLB2507)👽🔻
 
-### Ecommerce dashboard
 
-| Ecommerce Template |
-|:---------------:|
-|<a target="_blank" href="http://akveo.com/ngx-admin/#/pages/dashboard?utm_source=github&utm_medium=ngx_admin_readme&utm_campaign=themes&utm_content=ecommerce"><img src="https://i.imgur.com/UW7ZmcP.png"/></a>|
-
-### What's included:
-
-- Angular 6+ & Typescript
-- Bootstrap 4+ & SCSS
-- Responsive layout
-- RTL support
-- High resolution
-- Flexibly configurable themes with **hot-reload** (2 themes included)
-- Authentication module with multiple providers
-- Lots of awesome features:
-  - Buttons
-  - Modals
-  - Popovers
-  - Icons
-  - Typography
-  - Animated searches
-  - Forms
-  - Tabs
-  - Notifications
-  - Tables
-  - Maps
-  - Charts
-  - Editors
-  
-And many more!
-
-### Hot Themes Reload
-
-<a target="_blank" href="http://akveo.com/ngx-admin/#/pages/dashboard?utm_source=github&utm_medium=ngx_admin_readme&utm_campaign=demo"><img src="https://i.imgur.com/XoJtfvK.gif"/></a>
-
-### Demo
-
-<a target="_blank" href="http://akveo.com/ngx-admin/">Live Demo</a>
-
-## Documentation
+## Documentation (about Nebular - UI Kit)
 This template is using [Nebular](https://github.com/akveo/nebular) modules set, [here you can find documentation and other useful articles](https://akveo.github.io/nebular/docs/guides/install-based-on-starter-kit).
 
 ### ng2-admin
