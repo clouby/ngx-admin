@@ -6,6 +6,10 @@ const UserSchema = new Schema({
         type: String,
         default: nickname.random()
     },
+    fullName: {
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true,
@@ -14,7 +18,7 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['leader', 'assist_lead', 'instructor', 'assist', 'novice'],
+        enum: ['leader', 'assist_lead', 'instructor', 'assistant', 'novice'],
         required: true
     },
     password: {

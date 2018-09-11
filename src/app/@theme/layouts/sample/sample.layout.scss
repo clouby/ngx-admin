@@ -109,7 +109,7 @@
       & > .menu-items {
         & > .menu-item:first-child {
           .menu-title {
-            &::after {
+    /*         &::after {
               content: 'new';
               color: nb-theme(color-white);
               margin-left: 1rem;
@@ -117,7 +117,7 @@
               padding: 0 0.5rem;
               border-radius: nb-theme(radius);
               font-size: nb-theme(font-size-sm);
-            }
+            } */
           }
         }
       }

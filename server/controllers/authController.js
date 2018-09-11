@@ -1,12 +1,7 @@
 import { User, Post } from "../models"
 
-exports.logIn = async (req, res) => {
-    res
-    .status(200)
-    .json({
-        data: req.user
-    })
-}
+exports.logIn = async (req, res) => res.status(200).json(Object.assign({}, req.user))
+
 
 exports.signUp = async (req, res) => {
     const pre_user = new User( Object.assign({}, req.body) )
