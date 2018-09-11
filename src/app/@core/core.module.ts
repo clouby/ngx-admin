@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NbAuthModule, NbAuthJWTToken, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
-import { AuthGuard } from "./guard/auth-guard.service";
+import { AuthGuard } from './guard/auth-guard.service';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
@@ -45,7 +45,7 @@ export const NB_CORE_PROVIDERS = [
         ...endpoints_auth,
         token: {
           class: NbAuthJWTToken,
-          key: 'token'
+          key: 'token',
         },
       }),
     ],
