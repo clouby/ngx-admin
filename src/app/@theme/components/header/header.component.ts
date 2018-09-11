@@ -1,9 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { UserService } from '../../../@core/data/users.service';
+
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { LayoutService } from '../../../@core/data/layout.service';
+import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+import { StaticUser } from './config.model';
+import * as moment from "moment";
+import { interval, Observable } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'ngx-header',
@@ -14,20 +20,41 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user: any;
+  user: StaticUser;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  tokenExpTime:string;
+  tokenStatus:Observable<string>;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
-              private userService: UserService,
+              private authService: NbAuthService,
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService) {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+      this.authService.onTokenChange()
+      .subscribe((token: NbAuthJWTToken) => {
+        if ( token.isValid() ) {
+          const { email, fullName, _id, role } = token.getPayload() as StaticUser;
+          this.user = <StaticUser>{ email, fullName, _id, role };
+          
+          const expDate = moment( token.getTokenExpDate().getTime() )
+          
+          this.tokenStatus = this.tokenStatusAsync( token.getTokenExpDate().getTime() )
+          
+          this.tokenExpTime = expDate.format('lll');
+        }
+      });
+  }
+
+  private tokenStatusAsync( expiresInDate:number, time:number = 1000 ): Observable<string> {
+    return interval(time)
+           .pipe(
+             map(n => (new Date()).getTime()),
+             map(date_now => (expiresInDate > date_now) ? 'success' : 'danger' )
+           );
   }
 
   toggleSidebar(): boolean {

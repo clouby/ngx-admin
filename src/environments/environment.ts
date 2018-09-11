@@ -10,5 +10,5 @@
 
 export const environment = {
   production: false,
-  server_endpoint: 'http://localhost:4000/api/'
+  server_endpoint: 'http://localhost:4000/api',
 };
