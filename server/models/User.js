@@ -1,37 +1,43 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, {
+  Schema
+} from "mongoose"
 import nickname from "nickname"
 
 const UserSchema = new Schema({
-    nickname: {
-        type: String,
-        default: nickname.random()
-    },
-    fullName: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        index: true,
-        unique: true
-    },
-    role: {
-        type: String,
-        enum: ['leader', 'assist_lead', 'instructor', 'assistant', 'novice'],
-        required: true
-    },
-    password: {
-        type: String,
-        required: true,
-        select: false,
-        bcrypt: true
-    }
+  nickname: {
+    type: String,
+    default: nickname.random()
+  },
+  fullName: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true
+  },
+  mobile_phone: {
+    type: Number,
+    required: true
+  },
+  role: {
+    type: String,
+    enum: ['leader', 'assist_lead', 'instructor', 'assistant', 'novice'],
+    required: true
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
+    bcrypt: true
+  }
 }, {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
-    }
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 })
 
 
