@@ -7,14 +7,13 @@
 </div>
 
 <div class="header-container">
-  <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
   <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
     <nb-action icon="nb-gear" class="toggle-layout" (click)="toggleSettings()"></nb-action>
     <nb-action *nbIsGranted="['view', 'user']">
-      <nb-user [nbContextMenu]="userMenu" [name]="user?.fullName" [title]="user?.role | ngxCapitalize" [picture]="user?.picture"></nb-user>
+      <nb-user [nbContextMenu]="userMenu" [name]="user?.fullName" [title]="user?.role | ngxCapitalize"></nb-user>
     </nb-action>
     <nb-action>
-      <b [nbPopover]="tokenExpTime" nbPopoverPlacement="bottom" nbPopoverMode="hover">Token Exp.</b>
+      <b [nbPopover]="tokenExpTime | amDateFormat:'lll'" nbPopoverPlacement="bottom" nbPopoverMode="hover">Token Exp.</b>
       <nb-badge text="+" [status]="tokenStatus | async" position="bottom left"></nb-badge>
     </nb-action>
     <nb-action class="control-item" disabled icon="nb-notifications"></nb-action>

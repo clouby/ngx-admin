@@ -6,10 +6,8 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { LayoutService } from '../../../@core/data/layout.service';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { StaticUser } from './config.model';
-import * as moment from 'moment';
 import { interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'ngx-header',
@@ -23,7 +21,7 @@ export class HeaderComponent implements OnInit {
   user: StaticUser;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
-  tokenExpTime: string;
+  tokenExpTime: number;
   tokenStatus: Observable<string>;
 
   constructor(private sidebarService: NbSidebarService,
@@ -37,14 +35,13 @@ export class HeaderComponent implements OnInit {
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
-          const { email, fullName, _id, role } = token.getPayload() as StaticUser;
-          this.user = <StaticUser>{ email, fullName, _id, role };
+          const { email, fullName, _id, role } = token.getPayload();
 
-          const expDate = moment(token.getTokenExpDate().getTime());
+          this.user = <StaticUser>{ email, fullName, _id, role };
 
           this.tokenStatus = this.tokenStatusAsync(token.getTokenExpDate().getTime());
 
-          this.tokenExpTime = expDate.format('lll');
+          this.tokenExpTime = token.getTokenExpDate().getTime();
         }
       });
   }
@@ -52,7 +49,7 @@ export class HeaderComponent implements OnInit {
   private tokenStatusAsync(expiresInDate: number, time: number = 1000): Observable<string> {
     return interval(time)
       .pipe(
-        map(n => (new Date()).getTime()),
+        map(_ => (new Date()).getTime()),
         map(date_now => (expiresInDate > date_now) ? 'success' : 'danger'),
       );
   }

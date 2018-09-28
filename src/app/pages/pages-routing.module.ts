@@ -40,6 +40,9 @@ const routes: Routes = [{
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
   }, {
+    path: 'hotbed',
+    loadChildren: './hotbed/hotbeds.module#HotbedsModule',
+  }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
