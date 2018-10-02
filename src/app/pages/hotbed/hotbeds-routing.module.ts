@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { HotbedComponent } from "./hotbeds.component";
-import { CreateHotbedComponent } from "./create/create-hotbed.component";
+import { HotbedComponent } from './hotbeds.component';
+import { CreateHotbedComponent } from './create/create-hotbed.component';
 
 const routes: Routes = [{
     path: '',

@@ -20,6 +20,7 @@ import {
   NbContextMenuModule,
   NbProgressBarModule,
   NbBadgeModule,
+  NbAlertModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -51,8 +52,9 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
-import { MomentModule } from "ngx-moment";
+import { MomentModule } from 'ngx-moment';
 import 'moment/locale/es';
+import { PushAlertComponent } from './directives/push-alert/push-alert.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -74,7 +76,8 @@ const NB_MODULES = [
   NbSpinnerModule,
   NbSecurityModule, // *nbIsGranted directive,
   NbProgressBarModule,
-  MomentModule
+  NbAlertModule,
+  MomentModule,
 ];
 
 const COMPONENTS = [
@@ -84,6 +87,7 @@ const COMPONENTS = [
   ThemeSwitcherListComponent,
   HeaderComponent,
   FooterComponent,
+  PushAlertComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,

@@ -9,9 +9,7 @@ import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import { environment } from '../../environments/environment';
 import { endpoints_auth } from './utils/endpoints.auth';
-import { LineService } from "./services/line.service";
-import { CoreService } from "./services/core.service";
-import { RequestService } from "./services/request.service";
+import { LineService, CoreService, RequestService, PushAlertService } from './services';
 
 const socialLinks = [
   {
@@ -86,7 +84,8 @@ export const NB_CORE_PROVIDERS = [
   AuthGuard,
   CoreService,
   LineService,
-  RequestService
+  PushAlertService,
+  RequestService,
 ];
 
 @NgModule({

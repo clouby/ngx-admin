@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'pages',
     canActivate: [AuthGuard],
-    loadChildren: 'app/pages/pages.module#PagesModule'
+    loadChildren: 'app/pages/pages.module#PagesModule',
   },
   {
     path: 'auth',

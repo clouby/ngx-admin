@@ -1,4 +1,4 @@
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 export class StatusLoading {
     private loading: BehaviorSubject<boolean>;

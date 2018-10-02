@@ -9,7 +9,6 @@
               <span class="input-group-addon success"><i class="fa fa-university"></i></span>
               <input type="text" placeholder="Nombre del Semillero" class="form-control" formControlName="name" />
             </div>
-
             <div class="col-sm-4 input-group">
               <input type="text" class="form-control" placeholder="Fecha de Creación" [value]="selDate | amDateFormat:'MMMM DD, YYYY'"
                 formControlName="official_date" />
@@ -41,7 +40,16 @@
           </div>
           <div class="row">
             <div class="col-sm-6 form-group">
-              <input type="text" placeholder="Nombre del Semillero" class="form-control" formControlName="name" />
+              <input type="text" placeholder="Lider [ID]" class="form-control" formControlName="name" />
+            </div>
+            <div class="col-sm-6 form-group">
+              <input type="text" placeholder="Co-lider [ID]" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="submit" (click)="test()" class="btn btn-success">Success</button>
+              <button type="submit" (click)="testError()" class="btn btn-danger">Error</button>
             </div>
           </div>
         </nb-card-body>

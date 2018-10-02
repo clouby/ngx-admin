@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { NbAuthService, NbAuthJWTToken } from "@nebular/auth";
-import { HttpHeaders, HttpErrorResponse } from "@angular/common/http";
-import { throwError } from "rxjs";
+import { Injectable } from '@angular/core';
+import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class CoreService {
 
-    httpOptions: any = {}
+    httpOptions: any = {};
     private token: string = null;
     private URL = 'http://localhost:4000/api/';
 
@@ -24,13 +24,13 @@ export class CoreService {
             this.httpOptions = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
-                    'Authorization': this.g_token ? `bearer ${this.g_token}` : ''
-                })
-            }
-        })
+                    'Authorization': this.g_token ? `bearer ${this.g_token}` : '',
+                }),
+            };
+        });
     }
 
-    set s_token(token) {
+    private set s_token(token) {
         this.token = token;
     }
 
@@ -42,19 +42,16 @@ export class CoreService {
         return this.URL;
     }
 
+    joinUrl = (...paths) => this.server + paths.join('/');
+
+    // FIXME: Please, make me more promising.
     handleError(ACTION: string, data?: any) {
         return (error: HttpErrorResponse) => {
             if (error.error instanceof ErrorEvent) {
-                console.log(`[CLIENT:${ACTION}] -> `, error.error.message);
+                return throwError(`[CLIENT:${ACTION}] -> ${error.error.message}`);
             } else {
-                console.log(`[SERVER:${ACTION}] -> `, error.error);
+                return throwError(`[SERVER:${ACTION}] -> ${error.error}`);
             }
-
-            return throwError(`Upps! We have a problem...`);
-        }
+        };
     }
-
-    joinUrl(...paths) {
-        return this.server + paths.join('/')
-    }
-}   
+}
