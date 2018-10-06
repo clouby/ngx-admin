@@ -45,12 +45,17 @@ export class CoreService {
     joinUrl = (...paths) => this.server + paths.join('/');
 
     // FIXME: Please, make me more promising.
-    handleError(ACTION: string, data?: any) {
+    handleError(ACTION: Array<string>, data?: any) {
         return (error: HttpErrorResponse) => {
+            const actions = ACTION.join(',').toLocaleUpperCase();
+
             if (error.error instanceof ErrorEvent) {
-                return throwError(`[CLIENT:${ACTION}] -> ${error.error.message}`);
+                return throwError(`[CLIENT:${actions}] -> ${error.error.message}`);
             } else {
-                return throwError(`[SERVER:${ACTION}] -> ${error.error}`);
+                return throwError({
+                    message: `[SERVER:${actions}] -> ${error.error}`,
+                    fields: ACTION,
+                });
             }
         };
     }

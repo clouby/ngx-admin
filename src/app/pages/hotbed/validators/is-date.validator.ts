@@ -5,9 +5,9 @@ export class ValidatorDate {
     private static validateDate = (value) => {
         return value && !(value instanceof Date);
     }
-    static isDate(control: AbstractControl): { [key: string]: boolean } | null {
+    static isNotDate(control: AbstractControl): { [key: string]: boolean } | null {
         if (ValidatorDate.validateDate(control.value)) {
-            return { 'isDate': true };
+            return { 'isNotDate': true };
         }
         return null;
     }
