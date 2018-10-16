@@ -10,8 +10,8 @@ interface Line {
 }
 
 interface CollectionLine {
-    LINE_RESEARCH: Array<Line>
-    TRAINING_CENTER: Array<Line>
+    LINE_RESEARCH: Array<Line>;
+    TRAINING_CENTER: Array<Line>;
 }
 
 @Injectable()

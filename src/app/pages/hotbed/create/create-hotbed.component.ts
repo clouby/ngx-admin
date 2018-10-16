@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LineService } from '../../../@core/services/line.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { ValidatorDate } from '../validators/is-date.validator';
 import { PushAlertService } from '../../../@core/services';
+import { map, mergeMap, scan } from 'rxjs/operators';
 interface Lines {
     _id: string;
     name: string;
@@ -20,11 +21,15 @@ export class CreateHotbedComponent implements OnInit {
     // Loading Behavior
     loading: BehaviorSubject<boolean>;
 
-    // TODO: Get line research from API.
     lineResearch: Array<Lines> = [];
     trainingCenter: Lines[] = [];
 
-    // Bind data for NbCalendar
+    // Catch control errors for display error styles.
+    catchStyleError: any;
+
+    magnolia: any = {};
+
+    // Bind data from NbCalendar
     selDate: Date = null;
 
     // Show datepicker
@@ -39,14 +44,29 @@ export class CreateHotbedComponent implements OnInit {
         // Init form for create hotbed
         this.hotbedForm = this.initHotbedForm;
         // Init the line handlers
-        this.handlerErrorPromises(this.initLine);
+        this.handlerErrorPromises(this.initLine.bind(this));
+
+        this.classErrors(this.hotbedForm).subscribe(data => {
+            this.magnolia = data;
+        });
     }
 
-    handlerErrorPromises(fn, ...params) {
-        return fn(...params).catch(this.pas.error);
+    handlerErrorPromises(fn, params?: Array<any>): Promise<any> {
+        return fn(...params).catch(this.disablePropsByError(this.hotbedForm));
     }
 
-    get toggleShowDate() {
+    disablePropsByError(form: FormGroup, typeAlert: string = 'warning') {
+        return ({ message, fields = [] }) => {
+            if (fields.length) {
+                fields.forEach(control => {
+                    form.get(control).disable();
+                });
+            }
+            this.pas[typeAlert](message);
+        };
+    }
+
+    get toggleShowDate(): boolean {
         return this.showDate = !this.showDate;
     }
 
@@ -58,11 +78,41 @@ export class CreateHotbedComponent implements OnInit {
         this.pas.error('Error madapaka!');
     }
 
-    private initLine = async () => {
+
+    containerPaus(object): Object {
+        return object;
+    }
+
+    // TODO: Testing...
+    private classErrors(form: FormGroup): Observable<any> {
+        return form.valueChanges.pipe(
+            mergeMap(fields => from(Object.keys(fields))),
+            map(field => {
+                const control = form.get(field);
+                return {
+                    [field]: {
+                        'form-control-success': control.dirty && !control.invalid,
+                        'form-control-danger': !!control.errors && control.dirty,
+                    },
+                    index: field,
+                };
+            }),
+            map(field => {
+                return {
+                    [field.index]: Object.keys(field[field.index]).filter(val => field[field.index][val]),
+                };
+            }),
+            scan((acc, current) => ({ ...acc, ...current }), {}),
+        );
+    }
+
+    private async initLine() {
         // Behavior from `loading` property from LineService
         this.sLoading();
+
         // Change status with Date values
         this.handleDateChange('official_date');
+
         // Get Line Research and Training Centers
         const { LINE_RESEARCH, TRAINING_CENTER } = await this.ls.all;
 
@@ -76,7 +126,7 @@ export class CreateHotbedComponent implements OnInit {
         });
     }
 
-    private sLoading() {
+    private sLoading(): void {
         this.loading = this.ls.g_loading;
     }
 
@@ -87,7 +137,7 @@ export class CreateHotbedComponent implements OnInit {
     private get initHotbedForm(): FormGroup {
         return this.fb.group({
             name: [null, Validators.required],
-            official_date: [null, [Validators.required, ValidatorDate.isDate]],
+            official_date: [null, [Validators.required, ValidatorDate.isNotDate]],
             line_research: [null, Validators.required],
             training_center: [null, Validators.required],
             leader: [null, Validators.required],

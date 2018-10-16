@@ -2,16 +2,17 @@
   <div class="row">
     <div class="col-lg-7">
       <nb-card [nbSpinner]="loading | async" nbSpinnerStatus="success">
-        <nb-card-header> SEMILLLERO ⚡️ </nb-card-header>
+        <nb-card-header> Inscripción de Semillero ⚡️ </nb-card-header>
         <nb-card-body>
           <div class="row">
             <div class="col-sm-8 input-group">
               <span class="input-group-addon success"><i class="fa fa-university"></i></span>
-              <input type="text" placeholder="Nombre del Semillero" class="form-control" formControlName="name" />
+              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="magnolia.name"
+                formControlName="name" />
             </div>
             <div class="col-sm-4 input-group">
-              <input type="text" class="form-control" placeholder="Fecha de Creación" [value]="selDate | amDateFormat:'MMMM DD, YYYY'"
-                formControlName="official_date" />
+              <input type="text" class="form-control" [ngClass]="magnolia.official_date" placeholder="Fecha de Creación"
+                [value]="selDate | amDateFormat:'MMMM DD, YYYY'" formControlName="official_date" />
               <span class="input-group-append">
                 <button class="btn btn-primary btn-icon input-group-text" (click)="toggleShowDate">
                   <i class="ion-ios-calendar"></i>

@@ -9,11 +9,10 @@ import { PushAlert, AlertTypes } from '../models/push-alert';
 
 @Injectable()
 export class PushAlertService {
-    private subject = new Subject<PushAlert>();
+    subject = new Subject<PushAlert>();
 
     constructor(private router: Router) {
-        this.router.events.subscribe(event =>
-            (event instanceof NavigationStart) && this.clear());
+        this.router.events.subscribe(event => (event instanceof NavigationStart) && this.clear());
     }
 
     get getAlerts(): Observable<PushAlert> {
@@ -26,6 +25,10 @@ export class PushAlertService {
 
     error(message: string): void {
         this.subject.next(new PushAlert({ message, type: AlertTypes.Error }));
+    }
+
+    warning(message: string): void {
+        this.subject.next(new PushAlert({ message, type: AlertTypes.Warning }));
     }
 
     clear(): void {
