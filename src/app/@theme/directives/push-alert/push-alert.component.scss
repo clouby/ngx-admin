@@ -1,0 +1,19 @@
+@import '../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  max-height: 500px;
+  width: 30em;
+  padding: 20px;
+  z-index: 10000;
+
+  .push-container {
+    max-height: 500px;
+  }
+
+  nb-alert {
+    line-height: normal;
+  }
+}

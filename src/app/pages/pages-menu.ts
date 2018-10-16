@@ -178,4 +178,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'DEVELOPMENT',
+    group: true,
+  },
+  {
+    title: 'User Management',
+    icon: 'nb-person',
+    children: [
+      {
+        title: 'Hotbed Form',
+        link: '/pages/hotbed/create',
+      },
+    ],
+  },
 ];

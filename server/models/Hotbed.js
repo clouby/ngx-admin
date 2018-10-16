@@ -11,17 +11,22 @@ const HotbedSchema = new Schema({
     type: String,
     required: true,
   },
+  container: {
+    type: String,
+    get: n => n.toLowerCase(),
+  },
   official_date: {
     type: Date,
     required: true
   },
   training_center: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'TrainingCenter',
     required: true
   },
   line_research: {
-    type: String,
-    enum: ['investigación aplicada'],
+    type: Schema.Types.ObjectId,
+    ref: 'LineResearch',
     required: true
   },
   leader: {
@@ -33,10 +38,19 @@ const HotbedSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
+  co_novice: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   novices: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
   }]
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
 })
 
 HotbedSchema.plugin(accessibleRecordsPlugin)

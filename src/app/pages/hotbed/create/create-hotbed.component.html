@@ -1,0 +1,60 @@
+<form [formGroup]="hotbedForm">
+  <div class="row">
+    <div class="col-lg-7">
+      <nb-card [nbSpinner]="loading | async" nbSpinnerStatus="success">
+        <nb-card-header> Inscripción de Semillero ⚡️ </nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-8 input-group">
+              <span class="input-group-addon success"><i class="fa fa-university"></i></span>
+              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="magnolia.name"
+                formControlName="name" />
+            </div>
+            <div class="col-sm-4 input-group">
+              <input type="text" class="form-control" [ngClass]="magnolia.official_date" placeholder="Fecha de Creación"
+                [value]="selDate | amDateFormat:'MMMM DD, YYYY'" formControlName="official_date" />
+              <span class="input-group-append">
+                <button class="btn btn-primary btn-icon input-group-text" (click)="toggleShowDate">
+                  <i class="ion-ios-calendar"></i>
+                </button>
+              </span>
+              <!-- CONTAINER DATE PICKER -->
+              <ng-container *ngIf="showDate">
+                <nb-calendar [(date)]="selDate" startView="year" (dateChange)="select.emit($event)">
+                </nb-calendar>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <select class="form-control" formControlName="line_research">
+                <option *ngFor="let line of lineResearch" [ngValue]="line"> {{ line.name }} </option>
+              </select>
+              <small class="form-text">Líneas de Investigación Adscritas por el Semillero de Investigación</small>
+            </div>
+            <div class="col-sm-6 form-group">
+              <select class="form-control" formControlName="training_center">
+                <option *ngFor="let line of trainingCenter" [ngValue]="line"> {{ line.name }} </option>
+              </select>
+              <small class="form-text">Centro de Formación del Semillero de Investigación</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <input type="text" placeholder="Lider [ID]" class="form-control" formControlName="name" />
+            </div>
+            <div class="col-sm-6 form-group">
+              <input type="text" placeholder="Co-lider [ID]" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="submit" (click)="test()" class="btn btn-success">Success</button>
+              <button type="submit" (click)="testError()" class="btn btn-danger">Error</button>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</form>

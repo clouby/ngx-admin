@@ -13,12 +13,14 @@ import {
   NbSidebarModule,
   NbTabsetModule,
   NbThemeModule,
+  NbSpinnerModule,
   NbUserModule,
   NbCheckboxModule,
   NbPopoverModule,
   NbContextMenuModule,
   NbProgressBarModule,
   NbBadgeModule,
+  NbAlertModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -50,6 +52,9 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
+import { MomentModule } from 'ngx-moment';
+import 'moment/locale/es';
+import { PushAlertComponent } from './directives/push-alert/push-alert.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -68,8 +73,11 @@ const NB_MODULES = [
   NbPopoverModule,
   NbContextMenuModule,
   NgbModule,
+  NbSpinnerModule,
   NbSecurityModule, // *nbIsGranted directive,
   NbProgressBarModule,
+  NbAlertModule,
+  MomentModule,
 ];
 
 const COMPONENTS = [
@@ -79,6 +87,7 @@ const COMPONENTS = [
   ThemeSwitcherListComponent,
   HeaderComponent,
   FooterComponent,
+  PushAlertComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
@@ -105,7 +114,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'cosmic',
     },
-    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
+    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
