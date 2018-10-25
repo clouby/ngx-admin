@@ -7,11 +7,11 @@
           <div class="row">
             <div class="col-sm-8 input-group">
               <span class="input-group-addon success"><i class="fa fa-university"></i></span>
-              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="magnolia.name"
+              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="styleControlClass?.name"
                 formControlName="name" />
             </div>
             <div class="col-sm-4 input-group">
-              <input type="text" class="form-control" [ngClass]="magnolia.official_date" placeholder="Fecha de Creación"
+              <input type="text" class="form-control" [ngClass]="styleControlClass.official_date" placeholder="Fecha de Creación"
                 [value]="selDate | amDateFormat:'MMMM DD, YYYY'" formControlName="official_date" />
               <span class="input-group-append">
                 <button class="btn btn-primary btn-icon input-group-text" (click)="toggleShowDate">
@@ -41,10 +41,10 @@
           </div>
           <div class="row">
             <div class="col-sm-6 form-group">
-              <input type="text" placeholder="Lider [ID]" class="form-control" formControlName="name" />
+              <input type="text" placeholder="Lider [ID]" class="form-control" formControlName="leader" [ngClass]="styleControlClass?.leader" />
             </div>
             <div class="col-sm-6 form-group">
-              <input type="text" placeholder="Co-lider [ID]" class="form-control">
+              <input type="text" placeholder="Co-lider [ID]" class="form-control" formControlName="co_leader" [ngClass]="styleControlClass?.co_leader">
             </div>
           </div>
           <div class="row">

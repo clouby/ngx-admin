@@ -1,14 +1,16 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LineService } from '../../../@core/services/line.service';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subscribable, Subscription } from 'rxjs';
 import { ValidatorDate } from '../validators/is-date.validator';
 import { PushAlertService } from '../../../@core/services';
-import { map, mergeMap, scan } from 'rxjs/operators';
+import { map, mergeMap, scan, tap } from 'rxjs/operators';
+
 interface Lines {
     _id: string;
     name: string;
 }
+
 @Component({
     selector: 'ngx-create-hotbed',
     styleUrls: ['./create-hotbed.component.scss'],
@@ -21,13 +23,12 @@ export class CreateHotbedComponent implements OnInit {
     // Loading Behavior
     loading: BehaviorSubject<boolean>;
 
+    // Get data from endpoint for { line_research  && training_center }
     lineResearch: Array<Lines> = [];
     trainingCenter: Lines[] = [];
 
     // Catch control errors for display error styles.
-    catchStyleError: any;
-
-    magnolia: any = {};
+    styleControlClass: any = {};
 
     // Bind data from NbCalendar
     selDate: Date = null;
@@ -46,9 +47,7 @@ export class CreateHotbedComponent implements OnInit {
         // Init the line handlers
         this.handlerErrorPromises(this.initLine.bind(this));
 
-        this.classErrors(this.hotbedForm).subscribe(data => {
-            this.magnolia = data;
-        });
+        this.classErrors(this.hotbedForm, fields => this.styleControlClass = fields);
     }
 
     handlerErrorPromises(fn, params?: Array<any>): Promise<any> {
@@ -78,13 +77,11 @@ export class CreateHotbedComponent implements OnInit {
         this.pas.error('Error madapaka!');
     }
 
-
     containerPaus(object): Object {
         return object;
     }
 
-    // TODO: Testing...
-    private classErrors(form: FormGroup): Observable<any> {
+    private classErrors(form: FormGroup, cb): Subscription {
         return form.valueChanges.pipe(
             mergeMap(fields => from(Object.keys(fields))),
             map(field => {
@@ -97,13 +94,11 @@ export class CreateHotbedComponent implements OnInit {
                     index: field,
                 };
             }),
-            map(field => {
-                return {
-                    [field.index]: Object.keys(field[field.index]).filter(val => field[field.index][val]),
-                };
-            }),
+            map(field => ({
+                [field.index]: Object.keys(field[field.index]).filter(val => field[field.index][val]),
+            })),
             scan((acc, current) => ({ ...acc, ...current }), {}),
-        );
+        ).subscribe(cb);
     }
 
     private async initLine() {
