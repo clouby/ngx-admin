@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { HotbedRoutingModule, routedComponents } from './hotbeds-routing.module';
-import { NbCalendarModule, NbCalendarKitModule } from '@nebular/theme';
+import { NbCalendarModule, NbCalendarKitModule, NbDatepickerModule, NbDialogModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -11,6 +11,8 @@ import { NbCalendarModule, NbCalendarKitModule } from '@nebular/theme';
         HotbedRoutingModule,
         NbCalendarModule,
         NbCalendarKitModule,
+        NbDatepickerModule,
+        NbDialogModule.forChild(),
     ],
     declarations: [
         ...routedComponents,

@@ -1,0 +1,23 @@
+<form #nameForm="ngForm" (ngSubmit)="onSubmit(nameForm)" novalidate>
+  <nb-card>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-8 input-group my-1">
+          <span class="input-group-addon success">+</span>
+          <input type="text" class="form-control" placeholder="Nombre" (ngModelChange)="onChanges($event)" required
+            [(ngModel)]="model.name" name="name" />
+        </div>
+        <div class="col-sm-4 input-group my-1">
+          <span class="input-group-addon success">=</span>
+          <input type="text" class="form-control" id="acronym" placeholder="Siglas" required [(ngModel)]="model.acronym"
+            name="acronym" />
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button type="submit" class="btn btn-success btn-xs float-right">
+        Guardar
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</form>

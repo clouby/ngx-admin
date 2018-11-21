@@ -2,28 +2,25 @@
   <div class="row">
     <div class="col-lg-7">
       <nb-card [nbSpinner]="loading | async" nbSpinnerStatus="success">
-        <nb-card-header> Inscripción de Semillero ⚡️ </nb-card-header>
+        <nb-card-header> Inscripción de Semilleros ⚡️ </nb-card-header>
         <nb-card-body>
           <div class="row">
-            <div class="col-sm-8 input-group">
-              <span class="input-group-addon success"><i class="fa fa-university"></i></span>
-              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="styleControlClass?.name"
-                formControlName="name" />
-            </div>
-            <div class="col-sm-4 input-group">
-              <input type="text" class="form-control" [ngClass]="styleControlClass.official_date" placeholder="Fecha de Creación"
-                [value]="selDate | amDateFormat:'MMMM DD, YYYY'" formControlName="official_date" />
-              <span class="input-group-append">
-                <button class="btn btn-primary btn-icon input-group-text" (click)="toggleShowDate">
-                  <i class="ion-ios-calendar"></i>
-                </button>
+            <div class="col-sm-6 input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-university"></i>
               </span>
-              <!-- CONTAINER DATE PICKER -->
-              <ng-container *ngIf="showDate">
-                <nb-calendar [(date)]="selDate" startView="year" (dateChange)="select.emit($event)">
-                </nb-calendar>
-              </ng-container>
+              <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="styleControlClass?.name"
+                formControlName="name" ngxLoadFormComp (onResult)="onResultName($event)" readonly />
             </div>
+            <div class="col-sm-6 input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-bell"></i>
+              </span>
+              <input type="text" class="form-control" [ngClass]="styleControlClass?.official_date" placeholder="Fecha de Creación"
+                [nbDatepicker]="datepicker" formControlName="official_date" />
+            </div>
+            <!-- COMPONENT DATE-PICKER -->
+            <nb-datepicker #datepicker></nb-datepicker>
           </div>
           <div class="row">
             <div class="col-sm-6 form-group">
@@ -40,17 +37,19 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6 form-group">
-              <input type="text" placeholder="Lider [ID]" class="form-control" formControlName="leader" [ngClass]="styleControlClass?.leader" />
+            <div class="col-sm-6 input-group">
+              <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+              <input type="text" placeholder="Lider [ID]" class="form-control" ngxLoadFormComp formControlName="leader"
+                [ngClass]="styleControlClass?.leader" />
             </div>
-            <div class="col-sm-6 form-group">
+            <div class="col-sm-6 input-group">
+              <span class="input-group-addon"><i class="far fa-address-book"></i></span>
               <input type="text" placeholder="Co-lider [ID]" class="form-control" formControlName="co_leader" [ngClass]="styleControlClass?.co_leader">
             </div>
           </div>
-          <div class="row">
+          <div class="row justify-content-end">
             <div class="col-sm-6">
-              <button type="submit" (click)="test()" class="btn btn-success">Success</button>
-              <button type="submit" (click)="testError()" class="btn btn-danger">Error</button>
+              <button type="submit" (click)="test()" class="btn btn-success float-right">Success</button>
             </div>
           </div>
         </nb-card-body>

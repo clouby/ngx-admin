@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() position = 'normal';
+  @Input() position: string = 'normal';
 
   user: StaticUser;
 
@@ -46,8 +46,8 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  private tokenStatusAsync(expiresInDate: number, time: number = 1000): Observable<string> {
-    return interval(time)
+  private tokenStatusAsync(expiresInDate: number, mils: number = 1000): Observable<string> {
+    return interval(mils)
       .pipe(
         map(_ => (new Date()).getTime()),
         map(date_now => (expiresInDate > date_now) ? 'success' : 'danger'),

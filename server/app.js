@@ -79,7 +79,7 @@ passport.use(
       fullName,
       role
     }, KEY_SECRET_JWT, {
-      expiresIn: '1000ms'
+      expiresIn: '10h'
     }, cb_jwt(done))
   }))
 

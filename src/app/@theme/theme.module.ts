@@ -21,6 +21,7 @@ import {
   NbProgressBarModule,
   NbBadgeModule,
   NbAlertModule,
+  NbInputModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -35,7 +36,13 @@ import {
   ThemeSwitcherComponent,
   TinyMCEComponent,
   ThemeSwitcherListComponent,
+  LeaderFormComponent,
+  HotbedNameFormComponent,
 } from './components';
+import {
+  PushAlertComponent,
+  LoadDialogDirective,
+} from './directives';
 import {
   CapitalizePipe,
   PluralPipe,
@@ -54,7 +61,6 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { MomentModule } from 'ngx-moment';
 import 'moment/locale/es';
-import { PushAlertComponent } from './directives/push-alert/push-alert.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -77,6 +83,7 @@ const NB_MODULES = [
   NbSecurityModule, // *nbIsGranted directive,
   NbProgressBarModule,
   NbAlertModule,
+  NbInputModule,
   MomentModule,
 ];
 
@@ -95,10 +102,15 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  LoadDialogDirective,
+  LeaderFormComponent,
+  HotbedNameFormComponent,
 ];
 
 const ENTRY_COMPONENTS = [
   ThemeSwitcherListComponent,
+  LeaderFormComponent,
+  HotbedNameFormComponent,
 ];
 
 const PIPES = [

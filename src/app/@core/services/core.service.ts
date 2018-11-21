@@ -17,7 +17,7 @@ export class CoreService {
     initService() {
         this.auth.onTokenChange().subscribe((token: NbAuthJWTToken) => {
 
-            this.s_token = token.isValid() ? token.getValue() : null
+            this.s_token = token.isValid() ? token.getValue() : null;
 
             this.httpOptions = {
                 headers: new HttpHeaders({

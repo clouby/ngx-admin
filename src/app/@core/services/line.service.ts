@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CoreService } from './core.service';
 import { StatusLoading } from './../utils/status-loading.class';
-import { retry, catchError, tap, finalize } from 'rxjs/operators';
+import { retry, catchError } from 'rxjs/operators';
 
 interface Line {
     _id: string;
@@ -21,14 +21,16 @@ export class LineService extends StatusLoading {
         super(true);
     }
 
-    get all(): Promise<any> {
+    private get allLines() {
         return this.http.get<CollectionLine>(this.core.joinUrl('lines'), this.core.httpOptions)
             .pipe(
-                tap(this.reset_load),
                 retry(2),
                 catchError(this.core.handleError(['line_research', 'training_center'])),
-                finalize(this.end_load),
-            ).toPromise();
+            );
+    }
+
+    get all(): Promise<any> {
+        return this.loading_request(this.allLines).toPromise();
     }
 
 }

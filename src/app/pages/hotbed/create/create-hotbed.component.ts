@@ -1,10 +1,13 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LineService } from '../../../@core/services/line.service';
-import { BehaviorSubject, from, Observable, Subscribable, Subscription } from 'rxjs';
+import { BehaviorSubject, from, Subscription } from 'rxjs';
 import { ValidatorDate } from '../validators/is-date.validator';
 import { PushAlertService } from '../../../@core/services';
-import { map, mergeMap, scan, tap } from 'rxjs/operators';
+import { map, mergeMap, scan } from 'rxjs/operators';
+import { NbDialogService } from '@nebular/theme';
+import { LeaderFormComponent } from '../../../@theme/components';
+import { HotbedName } from '../../../@core/models/hotbed-name';
 
 interface Lines {
     _id: string;
@@ -17,8 +20,6 @@ interface Lines {
     templateUrl: './create-hotbed.component.html',
 })
 export class CreateHotbedComponent implements OnInit {
-    // Handle events for dateChange from NbCalendar
-    select: EventEmitter<Date> = new EventEmitter<Date>();
 
     // Loading Behavior
     loading: BehaviorSubject<boolean>;
@@ -30,31 +31,51 @@ export class CreateHotbedComponent implements OnInit {
     // Catch control errors for display error styles.
     styleControlClass: any = {};
 
-    // Bind data from NbCalendar
-    selDate: Date = null;
-
-    // Show datepicker
-    showDate: boolean = false;
-
     // Form for Create Hotbed
     hotbedForm: FormGroup;
 
-    constructor(private fb: FormBuilder, private ls: LineService, private pas: PushAlertService) { }
+    constructor(private fb: FormBuilder,
+        private ls: LineService,
+        private pas: PushAlertService,
+        private ds: NbDialogService) { }
 
     ngOnInit() {
         // Init form for create hotbed
         this.hotbedForm = this.initHotbedForm;
-        // Init the line handlers
+        // Init process for handle errors
         this.handlerErrorPromises(this.initLine.bind(this));
-
+        // Catch errors for form's field.
         this.classErrors(this.hotbedForm, fields => this.styleControlClass = fields);
+    }
+
+    onResultName(name: HotbedName) {
+        this.applyFormFields(name);
     }
 
     handlerErrorPromises(fn, params?: Array<any>): Promise<any> {
         return fn(...params).catch(this.disablePropsByError(this.hotbedForm));
     }
 
-    disablePropsByError(form: FormGroup, typeAlert: string = 'warning') {
+    get openDiag() {
+        return true;
+    }
+
+    test() {
+        // this.pas.success('Hola madapaka!');
+        this.ds.open(LeaderFormComponent);
+    }
+
+    testError() {
+        this.pas.error('Error madapaka!');
+    }
+
+    private applyFormFields(container: object) {
+        this.hotbedForm.patchValue({
+            ...container,
+        });
+    }
+
+    private disablePropsByError(form: FormGroup, typeAlert: string = 'warning') {
         return ({ message, fields = [] }) => {
             if (fields.length) {
                 fields.forEach(control => {
@@ -65,31 +86,16 @@ export class CreateHotbedComponent implements OnInit {
         };
     }
 
-    get toggleShowDate(): boolean {
-        return this.showDate = !this.showDate;
-    }
-
-    test() {
-        this.pas.success('Hola madapaka!');
-    }
-
-    testError() {
-        this.pas.error('Error madapaka!');
-    }
-
-    containerPaus(object): Object {
-        return object;
-    }
-
     private classErrors(form: FormGroup, cb): Subscription {
         return form.valueChanges.pipe(
             mergeMap(fields => from(Object.keys(fields))),
             map(field => {
                 const control = form.get(field);
+                const [success, danger] = [control.dirty && !control.invalid, !!control.errors && control.dirty];
                 return {
                     [field]: {
-                        'form-control-success': control.dirty && !control.invalid,
-                        'form-control-danger': !!control.errors && control.dirty,
+                        'form-control-success': success,
+                        'form-control-danger': danger,
                     },
                     index: field,
                 };
@@ -102,11 +108,8 @@ export class CreateHotbedComponent implements OnInit {
     }
 
     private async initLine() {
-        // Behavior from `loading` property from LineService
+        // Behavior of `loading` property from LineService
         this.sLoading();
-
-        // Change status with Date values
-        this.handleDateChange('official_date');
 
         // Get Line Research and Training Centers
         const { LINE_RESEARCH, TRAINING_CENTER } = await this.ls.all;
@@ -125,13 +128,10 @@ export class CreateHotbedComponent implements OnInit {
         this.loading = this.ls.g_loading;
     }
 
-    private handleDateChange(field): void {
-        this.select.subscribe((date: Date) => this.toggleShowDate || this.hotbedForm.get(field).setValue(date));
-    }
-
     private get initHotbedForm(): FormGroup {
         return this.fb.group({
             name: [null, Validators.required],
+            acronym: [null, Validators.required],
             official_date: [null, [Validators.required, ValidatorDate.isNotDate]],
             line_research: [null, Validators.required],
             training_center: [null, Validators.required],

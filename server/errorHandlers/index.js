@@ -1,12 +1,13 @@
 import chalk from "chalk"
 import Debug from "debug"
 import {
-  ForbiddenError
+  ForbiddenError,
 } from "@casl/ability"
 
 const debug = new Debug('snv:server:error')
 
 export const handlerErrorMid = (error, req, res, next) => {
+  //  If there is an error about Ability, send it to handlerErrorForbid
   if (error instanceof ForbiddenError) {
     return next(error)
   }

@@ -1,4 +1,4 @@
-# Project management oriented to research (SENNP)
+# Project Management for Education Research (SENNP)
 
 ### What features does it include:
 
@@ -10,7 +10,7 @@
 
 
 ### Start server:
-If it's your first time, execute
+If it's your first time, execute:
 ```
   npm install
 ```
@@ -20,7 +20,7 @@ and then:
 ```
 
 ### Before make a push
-If you did your commits and now you want to make a push...
+Before make your commits and now you want to make a push:
 ```
   npm run lint:fix
 ```

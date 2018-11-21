@@ -1,4 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, Observable } from 'rxjs';
+import { tap, merge, finalize } from 'rxjs/operators';
 
 export class StatusLoading {
     private loading: BehaviorSubject<boolean>;
@@ -26,6 +27,15 @@ export class StatusLoading {
     toggle_loading() {
         const load = !this.loading.getValue();
         this.loading.next(load);
+    }
+
+    loading_request(observable: Observable<any>): Observable<any> {
+        return of({})
+            .pipe(
+                tap(this.reset_load),
+                merge(observable),
+                finalize(this.end_load),
+            );
     }
 
 }

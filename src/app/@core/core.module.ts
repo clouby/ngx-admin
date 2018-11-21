@@ -10,6 +10,7 @@ import { AnalyticsService } from './utils/analytics.service';
 import { environment } from '../../environments/environment';
 import { endpoints_auth } from './utils/endpoints.auth';
 import { LineService, CoreService, RequestService, PushAlertService } from './services';
+import { FormDialogService } from './services/form-dialog.service';
 
 const socialLinks = [
   {
@@ -86,6 +87,7 @@ export const NB_CORE_PROVIDERS = [
   LineService,
   PushAlertService,
   RequestService,
+  FormDialogService,
 ];
 
 @NgModule({

@@ -1,18 +1,6 @@
 @import '../../../@theme/styles/themes';
 @import '~bootstrap/scss/mixins/breakpoints';
-@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
-
-::ng-deep nb-calendar {
-  // background-color: red !important;
-  position: absolute !important;
-  z-index: 1000;
-  top: 100%;
-  width: 78%;
-
-  .medium nb-card {
-    width: 100% !important;
-  }
-}
+@import '~@nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
 
@@ -24,6 +12,15 @@
     .dropdown {
       flex-basis: 30%;
       min-width: 220px;
+    }
+  }
+
+  .btn-icon {
+    font-size: 1.5rem !important;
+    color: #a1a1e5;
+
+    &:hover {
+      color: #ffffff;
     }
   }
 

@@ -40,7 +40,6 @@ const UserSchema = new Schema({
   }
 })
 
-
 UserSchema.plugin(require('mongoose-unique-validator'))
 UserSchema.plugin(require('mongoose-bcrypt'))
 

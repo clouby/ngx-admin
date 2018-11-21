@@ -7,3 +7,5 @@ export * from './theme-switcher/theme-switcher.component';
 export * from './switcher/switcher.component';
 export * from './layout-direction-switcher/layout-direction-switcher.component';
 export * from './theme-switcher/themes-switcher-list/themes-switcher-list.component';
+export * from './form-procs/leader/leader-form.component';
+export * from './form-procs/hotbed-name/hotbed-name-form.component';

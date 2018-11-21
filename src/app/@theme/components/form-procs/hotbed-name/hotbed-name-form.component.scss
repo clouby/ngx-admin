@@ -1,0 +1,20 @@
+@import './../../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  nb-card {
+    width: 100%;
+
+    .input-group-addon {
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  @media (max-width: 475px) {
+    nb-card {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+}
