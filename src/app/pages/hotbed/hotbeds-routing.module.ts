@@ -3,14 +3,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HotbedComponent } from './hotbeds.component';
 import { CreateHotbedComponent } from './create/create-hotbed.component';
+import { ViewActivityComponent } from './view-activity/view-activity.component';
 
 const routes: Routes = [{
     path: '',
     component: HotbedComponent,
-    children: [{
-        path: 'create',
-        component: CreateHotbedComponent,
-    }],
+    children: [
+        {
+            path: 'create',
+            component: CreateHotbedComponent,
+        },
+        {
+            path: 'view-activity',
+            component: ViewActivityComponent,
+        },
+    ],
 }];
 
 @NgModule({
@@ -28,4 +35,5 @@ export class HotbedRoutingModule {
 export const routedComponents = [
     HotbedComponent,
     CreateHotbedComponent,
+    ViewActivityComponent,
 ];

@@ -8,9 +8,15 @@ const UserSchema = new Schema({
     type: String,
     default: nickname.random()
   },
-  fullName: {
-    type: String,
-    required: true
+  name: {
+    first: {
+      type: String,
+      required: true,
+    },
+    last: {
+      type: String,
+      required: true,
+    },
   },
   email: {
     type: String,
@@ -24,7 +30,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['leader', 'assist_lead', 'instructor', 'assistant', 'novice'],
+    enum: ['leader', 'supp_lead', 'co_leader', 'assistant', 'novice'],
     required: true
   },
   password: {
@@ -32,6 +38,9 @@ const UserSchema = new Schema({
     required: true,
     select: false,
     bcrypt: true
+  },
+  token_reset_password: {
+    type: String
   }
 }, {
   timestamps: {
@@ -40,7 +49,17 @@ const UserSchema = new Schema({
   }
 })
 
+// Include modules for password crypting and unique validator
 UserSchema.plugin(require('mongoose-unique-validator'))
 UserSchema.plugin(require('mongoose-bcrypt'))
+
+// Make a virtual set about `fullName`
+UserSchema.virtual('fullName').get(function () {
+  const {
+    first,
+    last
+  } = this.name;
+  return `${first} ${last}`;
+})
 
 export default mongoose.model('User', UserSchema)

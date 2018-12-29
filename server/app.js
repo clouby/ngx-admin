@@ -29,16 +29,17 @@ import delay from "express-delay"
 
 const app = express()
 
-const app_debug = new Debug('snv:app')
+// const app_debug = new Debug('snv:app')
 
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+
 app.use(bodyParser.json())
 app.use(methodOverride())
 app.use(cors())
 app.use(passport.initialize())
-app.use(delay(3000))
+app.use(delay(500, 2000))
 
 // TODO:Make a directory including `utils` functions.
 const response_error_message = field => ({
@@ -83,13 +84,13 @@ passport.use(
     }, cb_jwt(done))
   }))
 
-// Verificate our token.
+// Validate our token.
 passport.use(
   new BearerStrategy((token, done) => {
     jwt.verify(token, KEY_SECRET_JWT, cb_jwt(done))
   }))
 
-// @defined_routes
+//  Main Routes
 app.use('/api', pages)
 app.use('/api/auth', auth)
 

@@ -9,14 +9,15 @@ import { NgForm } from '@angular/forms';
     styleUrls: ['./hotbed-name-form.component.scss'],
 })
 export class HotbedNameFormComponent implements OnInit, AfterContentInit {
-    @Input() name: string;
+    // All extenr data for the context
+    @Input() data: any;
 
     model: HotbedName;
 
     constructor(private dr: NbDialogRef<HotbedNameFormComponent>) { }
 
     ngOnInit() {
-        this.model = new HotbedName(this.name);
+        this.model = new HotbedName(this.data.name);
         this.defaultChanges(this.model);
     }
 
@@ -28,9 +29,9 @@ export class HotbedNameFormComponent implements OnInit, AfterContentInit {
     }
 
     onSubmit(form: NgForm) {
-        // if (form.valid) {
-        this.submit(this.model);
-        // }
+        if (form.valid) {
+            this.submit(this.model);
+        }
     }
 
     private defaultChanges(ref: HotbedName) {

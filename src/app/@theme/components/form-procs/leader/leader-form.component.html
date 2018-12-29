@@ -1,14 +1,85 @@
-<nb-card>
-  <nb-card-header> {{ title }} </nb-card-header>
-  <nb-card-body>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras convallis tincidunt tincidunt.
-    Vestibulum vulputate maximus massa vel tristique. Suspendisse potenti. Duis aliquet purus sed dictum dictum.
-    Donec fringilla, purus at fermentum imperdiet, velit enim malesuada turpis, quis luctus arcu arcu nec orci.
-    Duis eu mattis felis. Quisque sollicitudin elementum nunc vel tincidunt. Vestibulum egestas mi nec
-    iaculis varius. Morbi in risus sed sapien ultricies feugiat. Quisque pulvinar mattis purus,
-    in aliquet massa aliquet et.
-  </nb-card-body>
-  <nb-card-footer>
-    <button class="btn btn-primary" type="button" (click)="dismiss">Dismiss.</button>
-  </nb-card-footer>
-</nb-card>
+<form [formGroup]="FormBase" (ngSubmit)="onSubmit()">
+  <nb-card>
+    <nb-card-header>
+      <span> {{ data.title }} ⚡️ </span>
+      <small class="float-right" *ngIf="_id">
+        <div class="alert alert-primary" role="code">
+          ID: <strong nbPopover ngxToolCopy>{{ _id }}</strong>
+          <small
+            class="ml-2"
+            nbTooltipPlacement="bottom"
+            nbTooltip="COPIAR (ctrl+clic)"
+            ><i class="far fa-question-circle"></i
+          ></small>
+        </div>
+      </small>
+    </nb-card-header>
+    <nb-card-body>
+      <div
+        class="
+            row"
+        [formGroup]="formField('name')"
+      >
+        <div class="col-sm-6 input-group mb-2">
+          <span class="input-group-addon"> <i class="fa fa-clone"></i> </span>
+          <input
+            type="text"
+            name="first"
+            formControlName="first"
+            placeholder="Nombre(s)"
+            class="form-control"
+            ngxStatusControl
+          />
+        </div>
+        <div class="col-sm-6 input-group mb-2">
+          <span class="input-group-addon"> <i class="far fa-clone"></i> </span>
+          <input
+            type="text"
+            name="last"
+            formControlName="last"
+            placeholder="Apellidos"
+            class="form-control"
+            ngxStatusControl
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 input-group">
+          <span class="input-group-addon"> <i class="fa fa-phone"></i> </span>
+          <input
+            type="text"
+            name="mobile_phone"
+            ngxAccessPipe
+            formControlName="mobile_phone"
+            placeholder="Número de Celular"
+            class="form-control"
+            ngxStatusControl
+          />
+        </div>
+        <div class="col-sm-6 input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope"></i>
+          </span>
+          <input
+            type="text"
+            name="email"
+            formControlName="email"
+            placeholder="Correo Electrónico"
+            class="form-control"
+            ngxStatusControl
+          />
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button
+        class="btn btn-hero-success float-right"
+        type="submit"
+        [class.btn-pulse]="submitted"
+        [disabled]="FormBase.invalid"
+      >
+        ENVIAR
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</form>

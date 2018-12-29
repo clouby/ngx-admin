@@ -13,7 +13,7 @@ export const handlerErrorMid = (error, req, res, next) => {
   }
   debug(chalk.red("[error_mid_handler]") + " " + JSON.stringify(error))
   res
-    .status(400)
+    .status(500)
     .json({
       error
     })

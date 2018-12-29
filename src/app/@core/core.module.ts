@@ -9,8 +9,9 @@ import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 import { environment } from '../../environments/environment';
 import { endpoints_auth } from './utils/endpoints.auth';
-import { LineService, CoreService, RequestService, PushAlertService } from './services';
+import { LineService, CoreService, RequestService, PushAlertService, WindowRef, UserService } from './services';
 import { FormDialogService } from './services/form-dialog.service';
+import { StatusLoading } from './utils/status-loading.class';
 
 const socialLinks = [
   {
@@ -61,6 +62,9 @@ export const NB_CORE_PROVIDERS = [
       register: {
         socialLinks: socialLinks,
       },
+      resetPassword: {
+        strategy: 'local',
+      },
     },
   }).providers,
 
@@ -81,6 +85,7 @@ export const NB_CORE_PROVIDERS = [
   {
     provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
   },
+  WindowRef,
   AnalyticsService,
   AuthGuard,
   CoreService,
@@ -88,6 +93,8 @@ export const NB_CORE_PROVIDERS = [
   PushAlertService,
   RequestService,
   FormDialogService,
+  UserService,
+  StatusLoading,
 ];
 
 @NgModule({

@@ -18,7 +18,7 @@ interface CollectionLine {
 export class LineService extends StatusLoading {
 
     constructor(private http: HttpClient, private core: CoreService) {
-        super(true);
+        super();
     }
 
     private get allLines() {

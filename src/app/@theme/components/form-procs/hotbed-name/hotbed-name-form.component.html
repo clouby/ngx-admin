@@ -4,8 +4,8 @@
       <div class="row">
         <div class="col-sm-8 input-group my-1">
           <span class="input-group-addon success">+</span>
-          <input type="text" class="form-control" placeholder="Nombre" (ngModelChange)="onChanges($event)" required
-            [(ngModel)]="model.name" name="name" />
+          <input type="text" class="form-control" placeholder="Nombre" (focus)="nameForm.dirty &&  onChanges(model.name)"
+            (ngModelChange)="onChanges($event)" required [(ngModel)]="model.name" name="name" />
         </div>
         <div class="col-sm-4 input-group my-1">
           <span class="input-group-addon success">=</span>
@@ -15,7 +15,7 @@
       </div>
     </nb-card-body>
     <nb-card-footer>
-      <button type="submit" class="btn btn-success btn-xs float-right">
+      <button type="submit" [disabled]="nameForm.invalid" class="btn btn-success btn-xs float-right">
         Guardar
       </button>
     </nb-card-footer>

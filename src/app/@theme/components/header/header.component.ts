@@ -1,57 +1,82 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { LayoutService } from '../../../@core/data/layout.service';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
-import { StaticUser } from './config.model';
+import { StaticUser } from '../../../@core/models/User.model';
 import { interval, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  UserActive,
+  UserActivityService,
+} from '../../../@core/data/user-activity.service';
 
 @Component({
   selector: 'ngx-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() position: string = 'normal';
 
   user: StaticUser;
+
+  today = new Date();
+
+  userActivity: UserActive[] = [];
+  type = 'month';
+  types = ['week', 'month', 'year'];
+  currentTheme: string;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
   tokenExpTime: number;
   tokenStatus: Observable<string>;
 
-  constructor(private sidebarService: NbSidebarService,
+  constructor(
+    private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private authService: NbAuthService,
     private analyticsService: AnalyticsService,
-    private layoutService: LayoutService) {
-  }
+    private layoutService: LayoutService,
+    private userActivityService: UserActivityService,
+  ) {}
 
   ngOnInit() {
-    this.authService.onTokenChange()
-      .subscribe((token: NbAuthJWTToken) => {
-        if (token.isValid()) {
-          const { email, fullName, _id, role } = token.getPayload();
+    this.getUserActivity(this.type);
 
-          this.user = <StaticUser>{ email, fullName, _id, role };
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+      if (token.isValid()) {
+        const { email, fullName, _id, role } = token.getPayload();
 
-          this.tokenStatus = this.tokenStatusAsync(token.getTokenExpDate().getTime());
+        this.user = <StaticUser>{ email, fullName, _id, role };
 
-          this.tokenExpTime = token.getTokenExpDate().getTime();
-        }
-      });
+        this.tokenStatus = this.tokenStatusAsync(
+          token.getTokenExpDate().getTime(),
+        );
+
+        this.tokenExpTime = token.getTokenExpDate().getTime();
+      }
+    });
   }
 
-  private tokenStatusAsync(expiresInDate: number, mils: number = 1000): Observable<string> {
-    return interval(mils)
-      .pipe(
-        map(_ => (new Date()).getTime()),
-        map(date_now => (expiresInDate > date_now) ? 'success' : 'danger'),
-      );
+  private tokenStatusAsync(
+    expiresInDate: number,
+    mils: number = 1000,
+  ): Observable<string> {
+    return interval(mils).pipe(
+      map(_ => new Date().getTime()),
+      map(date_now => (expiresInDate > date_now ? 'success' : 'danger')),
+    );
+  }
+
+  getUserActivity(period: string) {
+    this.userActivityService
+      .getUserActivityData(period)
+      .subscribe(userActivityData => {
+        this.userActivity = userActivityData;
+      });
   }
 
   toggleSidebar(): boolean {
@@ -74,4 +99,6 @@ export class HeaderComponent implements OnInit {
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
+
+  ngOnDestroy() {}
 }

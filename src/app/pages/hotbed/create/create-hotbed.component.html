@@ -10,7 +10,7 @@
                 <i class="fa fa-university"></i>
               </span>
               <input type="text" placeholder="Nombre del Semillero" class="form-control" [ngClass]="styleControlClass?.name"
-                formControlName="name" ngxLoadFormComp (onResult)="onResultName($event)" readonly />
+                formControlName="name" ngxLoadFormComp (onResult)="onResultName($event)" />
             </div>
             <div class="col-sm-6 input-group">
               <span class="input-group-addon">
@@ -44,14 +44,154 @@
             </div>
             <div class="col-sm-6 input-group">
               <span class="input-group-addon"><i class="far fa-address-book"></i></span>
-              <input type="text" placeholder="Co-lider [ID]" class="form-control" formControlName="co_leader" [ngClass]="styleControlClass?.co_leader">
+              <input type="text" placeholder="Co-lider [ID]" class="form-control" formControlName="co_leader"
+                ngxLoadFormComp [ngClass]="styleControlClass?.co_leader">
             </div>
           </div>
           <div class="row justify-content-end">
             <div class="col-sm-6">
-              <button type="submit" (click)="test()" class="btn btn-success float-right">Success</button>
+              <button type="submit" (click)="test()" class="btn btn-hero-success float-right">ENVIAR</button>
             </div>
           </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-5">
+      <nb-card>
+        <nb-card-body>
+          <nb-tabset fullWidth>
+            <nb-tab tabTitle="TELEOLOGIA">
+              <nb-accordion>
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Visión
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <!-- <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor> -->
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Misión
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Objetivos
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Retos
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Oportunidades
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+              </nb-accordion>
+            </nb-tab>
+            <nb-tab tabTitle="FOCALIZACION ESTRATEGICA">
+              <nb-accordion multi>
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Estrategias de Investigación, Desarrollo Tecnológico e Innovación
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Estrategias de Desarrollo Académico
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Estrategias para el Desarrollo de Capacidades
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Estrategias de Financiamiento
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                  <nb-accordion-item-header>
+                    Estrategias de Difusión y Apropiación del Conocimiento
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <div class="input-group">
+                      <ckeditor [editor]="EditorBuild" [data]="initialData"></ckeditor>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+              </nb-accordion>
+            </nb-tab>
+          </nb-tabset>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header>
+          Aprendices Adscritos al Semillero de Investigación
+        </nb-card-header>
+
+        <nb-card-body>
+          <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+          </ng2-smart-table>
         </nb-card-body>
       </nb-card>
     </div>

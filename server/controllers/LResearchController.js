@@ -2,6 +2,7 @@ import {
   LineResearch,
   TrainingCenter
 } from "./../models"
+import fs from "fs";
 
 exports.store = async (req, res, next) => {
   const l_reseach = await TrainingCenter.create(req.body)

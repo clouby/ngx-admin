@@ -20,8 +20,23 @@ import {
   NbContextMenuModule,
   NbProgressBarModule,
   NbBadgeModule,
-  NbAlertModule,
+  NbCalendarModule,
+  NbCalendarRangeModule,
+  NbStepperModule,
+  NbButtonModule,
   NbInputModule,
+  NbAccordionModule,
+  NbDatepickerModule,
+  NbDialogModule,
+  NbWindowModule,
+  NbListModule,
+  NbToastrModule,
+  NbAlertModule,
+  NbRadioModule,
+  NbSelectModule,
+  NbChatModule,
+  NbTooltipModule,
+  NbCalendarKitModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -39,9 +54,15 @@ import {
   LeaderFormComponent,
   HotbedNameFormComponent,
 } from './components';
+
+import { NgxResetPasswordComponent } from './auth';
+
 import {
   PushAlertComponent,
   LoadDialogDirective,
+  AccessPipeDirective,
+  StatusControlDirective,
+  ToolCopyDirective,
 } from './directives';
 import {
   CapitalizePipe,
@@ -49,6 +70,8 @@ import {
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  EvaIconsPipe,
+  MobilePhonePipe,
 } from './pipes';
 import {
   OneColumnLayoutComponent,
@@ -58,8 +81,11 @@ import {
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
 import { MomentModule } from 'ngx-moment';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import 'moment/locale/es';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
@@ -82,9 +108,28 @@ const NB_MODULES = [
   NbSpinnerModule,
   NbSecurityModule, // *nbIsGranted directive,
   NbProgressBarModule,
-  NbAlertModule,
-  NbInputModule,
   MomentModule,
+  NbCalendarModule,
+  NbCalendarRangeModule,
+  NbStepperModule,
+  NbButtonModule,
+  NbListModule,
+  NbToastrModule,
+  NbInputModule,
+  NbAccordionModule,
+  NbDatepickerModule,
+  NbDialogModule,
+  NbWindowModule,
+  NbAlertModule,
+  NbSpinnerModule,
+  NbRadioModule,
+  NbSelectModule,
+  NbChatModule,
+  NbTooltipModule,
+  NbCalendarKitModule,
+  CKEditorModule,
+  Ng2SmartTableModule,
+  PdfViewerModule,
 ];
 
 const COMPONENTS = [
@@ -103,8 +148,12 @@ const COMPONENTS = [
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
   LoadDialogDirective,
+  AccessPipeDirective,
+  StatusControlDirective,
+  ToolCopyDirective,
   LeaderFormComponent,
   HotbedNameFormComponent,
+  NgxResetPasswordComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -119,17 +168,26 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
+  EvaIconsPipe,
+  MobilePhonePipe,
 ];
 
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'cosmic',
+      name: 'default',
     },
-    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME],
+    [DEFAULT_THEME, COSMIC_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
+  ...NbDatepickerModule.forRoot().providers,
+  ...NbDialogModule.forRoot().providers,
+  ...NbWindowModule.forRoot().providers,
+  ...NbToastrModule.forRoot().providers,
+  ...NbChatModule.forRoot({
+    messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
+  }).providers,
 ];
 
 @NgModule({

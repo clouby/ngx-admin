@@ -8,6 +8,7 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { NgxResetPasswordComponent } from './@theme/auth';
 import { AuthGuard } from './@core/guard/auth-guard.service';
 
 const routes: Routes = [
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'reset-password',
         component: NbResetPasswordComponent,
+      },
+      {
+        path: 'reset-password/:id',
+        component: NgxResetPasswordComponent,
       },
     ],
   },

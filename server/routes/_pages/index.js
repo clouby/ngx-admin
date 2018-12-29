@@ -1,4 +1,8 @@
 export {
   default as hotbedRoutes
 }
-from "./hotbed"
+from "./hotbed";
+export {
+  default as userRoutes
+}
+from "./user";

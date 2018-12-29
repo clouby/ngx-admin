@@ -31,7 +31,7 @@ async function start_server() {
     // If there are any error on mongo connection, do this...
     server_main_debug(`Upps!, ${JSON.stringify(error)}`);
 
-    return process.exit(1);
+    return process.exit(0);
   }
 }
 

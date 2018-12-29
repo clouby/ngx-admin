@@ -7,9 +7,11 @@ export class SmartTableService {
     id: 1,
     firstName: 'Mark',
     lastName: 'Otto',
-    username: '@mdo',
+    document: '45458638',
+    training_center: 'Gestión de Redes de Datos',
     email: 'mdo@gmail.com',
-    age: '28',
+    mobile_phone: '3017886544',
+    vinculation: true,
   }, {
     id: 2,
     firstName: 'Jacob',
@@ -425,7 +427,34 @@ export class SmartTableService {
     'age': 16,
   }];
 
+  data_test = [
+    {
+      id: Math.round(Math.random() * 1000),
+      firstName: 'Mark',
+      lastName: 'Otto',
+      document: '45458638',
+      training_center: 'Gestión de Redes de Datos',
+      email: 'mdo@gmail.com',
+      mobile_phone: '3017886544',
+      vinculation: 'privado',
+    },
+    {
+      id: Math.round(Math.random() * 1000),
+      firstName: 'Oswaldo',
+      lastName: 'Bru',
+      document: '234236534',
+      training_center: 'Gestión de Redes de Datos',
+      email: 'oxi@gmail.com',
+      mobile_phone: '1239i45933',
+      vinculation: 'publico',
+    },
+  ];
+
   getData() {
     return this.data;
+  }
+
+  getDataTest() {
+    return this.data_test;
   }
 }

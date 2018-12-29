@@ -10,10 +10,11 @@ import {
 } from "./../errorHandlers"
 import LResearchController from "./../controllers/LResearchController"
 import {
-  hotbedRoutes
+  hotbedRoutes,
+  userRoutes
 } from "./_pages"
 
-const route = Router()
+const route = Router();
 
 // Handler for exclude routes on ACL/JWT_Verification / excluding /auth/ paths
 route.all(/^((?!auth).)*$/, passport.authenticate('bearer', {
@@ -22,7 +23,8 @@ route.all(/^((?!auth).)*$/, passport.authenticate('bearer', {
 
 
 // Include routes for all the pages.
-route.use('/hotbed', hotbedRoutes)
+route.use('/hotbed', hotbedRoutes);
+route.use('/user', userRoutes);
 
 // @Global_Routes
 route.get('/lines', handlerErrorAct(LResearchController.all))
